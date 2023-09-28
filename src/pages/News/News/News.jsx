@@ -9,7 +9,7 @@ const News = () => {
     const { title, details, image_url, category_id } = news;
     return (
         <div>
-            <Card className='mb-5'>
+            <Card className='m-5'>
                 <Card.Img variant="top" src={image_url} />
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
