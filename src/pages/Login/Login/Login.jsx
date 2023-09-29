@@ -1,12 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../providers/AuthProvider';
 
 const Login = () => {
     const {login} = useContext(AuthContext);
+
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
+
+    const navigate = useNavigate();
 
 
     const handleLogin = event =>{
@@ -25,6 +28,7 @@ const Login = () => {
             console.log(loggedUser);
             setSuccess('User has been successfully logged in');
             event.target.reset();
+            navigate('/category/0')
         })
         .catch(error =>{
             setError(error.message);

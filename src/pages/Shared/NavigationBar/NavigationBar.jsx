@@ -5,7 +5,15 @@ import { FaCircleUser } from 'react-icons/fa6';
 import { AuthContext } from '../../../providers/AuthProvider';
 
 const NavigationBar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () =>{
+        logOut()
+        .then()
+        .catch(error =>{
+            console.log(error.message);
+        })
+    }
     return (
         <Container>
             <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" >
@@ -26,7 +34,7 @@ const NavigationBar = () => {
                             }
 
                             {user ?
-                                <Button className='py-1 px-4 w-75 ms-2' variant="dark">LogOut</Button> :
+                                <Button onClick={handleLogOut} className='py-1 px-4 w-75 ms-2' variant="dark">LogOut</Button> :
                                 <Link to='/login'>
                                     <Button className='py-1 px-4 ' variant="dark">Login</Button>
                                 </Link>
