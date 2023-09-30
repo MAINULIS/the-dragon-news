@@ -6,8 +6,11 @@ import { AuthContext } from '../../../providers/AuthProvider';
 const Register = () => {
     const {createUser} = useContext(AuthContext);
 
+    const [accept, setAccept] = useState(false);
+
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
+
 
     const handleRegister = event =>{
         event.preventDefault();
@@ -33,15 +36,19 @@ const Register = () => {
             setError(error.message);
         })
     }
+
+    const handleAccept = event =>{
+        setAccept(event.target.checked)
+    }
     return (
         <Container className='mx-auto w-50 m-5 shadow-lg p-5 '>
         <Form onSubmit={handleRegister}>
             <h2 className='text-secondary pb-3'>Register Your Account</h2> <hr />
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Your Name</Form.Label>
                 <Form.Control type="text" name='name' placeholder="Enter your name" required />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicUrl">
                 <Form.Label>Photo URL</Form.Label>
                 <Form.Control type="text" name='photo' placeholder="Enter your photo url" />
             </Form.Group>
@@ -55,8 +62,11 @@ const Register = () => {
                 <Form.Control type="password" name='password' placeholder=" Enter your password" required />
             </Form.Group>
             <Form.Group className="mb-3 text-info" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" name='accept' label="Accepts Terms And Conditions" required />
-            </Form.Group>
+                <Form.Check onClick={handleAccept}
+                 type="checkbox"
+                 name='accept'
+                  label={<>Accepts <Link to="/terms">Terms And Conditions</Link></>} />
+            </Form.Group> 
 
            <div className='text-center'>
            <Form.Text className="text-success">
@@ -66,7 +76,7 @@ const Register = () => {
                 {error}
             </Form.Text>
            </div>
-            <Button variant="secondary w-100 my-3 fw-bold" type="submit">
+            <Button variant="secondary w-100 my-3 fw-bold" disabled={!accept} type="submit">
                 Register
             </Button> 
             
